@@ -93,15 +93,10 @@ class PurchaseOrderSKU(models.Model):
         self.ean_code = sku_catalogue_instance.ean_code
         self.mrp = sku_catalogue_instance.mrp
         self.taxable_value = sku_catalogue_instance.unit_price * self.quantity
-        self.cgst_value = (self.cgst / 100) * (
-            sku_catalogue_instance.unit_price * self.quantity
-        )
-        self.sgst_value = (self.sgst / 100) * (
-            sku_catalogue_instance.unit_price * self.quantity
-        )
-        self.igst_value = (self.igst / 100) * (
-            sku_catalogue_instance.unit_price * self.quantity
-        )
+        self.cgst_value = (self.cgst / 100) * self.taxable_value
+        self.sgst_value = (self.sgst / 100) * self.taxable_value
+        self.igst_value = (self.igst / 100) * self.taxable_value
+        self.total_amount = self.taxable_value + self.cgst_value + self.sgst_value + self.igst_value
         return super().save(force_insert, force_update)
 
 
@@ -216,13 +211,9 @@ class SupplyOrderSKU(models.Model):
         self.ean_code = sku_catalogue_instance.ean_code
         self.mrp = sku_catalogue_instance.mrp
         self.taxable_value = sku_catalogue_instance.unit_price * self.quantity
-        self.cgst_value = (self.cgst / 100) * (
-            sku_catalogue_instance.unit_price * self.quantity
-        )
-        self.sgst_value = (self.sgst / 100) * (
-            sku_catalogue_instance.unit_price * self.quantity
-        )
-        self.igst_value = (self.igst / 100) * (
-            sku_catalogue_instance.unit_price * self.quantity
-        )
+        self.cgst_value = (self.cgst / 100) * self.taxable_value
+        self.sgst_value = (self.sgst / 100) * self.taxable_value
+        self.igst_value = (self.igst / 100) * self.taxable_value
+        self.total_amount = self.taxable_value + self.cgst_value + self.sgst_value + self.igst_value
+
         return super().save(force_insert, force_update)

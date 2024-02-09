@@ -70,6 +70,7 @@ class PurchaseOrderSKUAdmin(admin.ModelAdmin):
         "cgst_value",
         "sgst_value",
         "igst_value",
+        "total_amount"
     )
     list_filter = ('purchase_order', 'sku_catalogue')
 
@@ -169,6 +170,7 @@ class SupplyOrderSKUAdmin(admin.ModelAdmin):
         "cgst_value",
         "sgst_value",
         "igst_value",
+        "total_amount"
     )
     list_filter =('supply_order', 'purchase_order_sku', 'status')
 
